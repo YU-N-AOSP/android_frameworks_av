@@ -1885,6 +1885,10 @@ status_t MPEG4Writer::Track::stop() {
     status_t err = static_cast<status_t>(reinterpret_cast<uintptr_t>(dummy));
 
     ALOGD("%s track stopped", mIsAudio? "Audio": "Video");
+    if (mOwner->exceedsFileSizeLimit() && mStszTableEntries->count() == 0) {
+        ALOGE(" Filesize limit exceeded and zero samples written ");
+        return ERROR_END_OF_STREAM;
+    }
     return err;
 }
 
@@ -3090,7 +3094,7 @@ void MPEG4Writer::Track::writePaspBox() {
 int32_t MPEG4Writer::Track::getStartTimeOffsetScaledTime() const {
     int64_t trackStartTimeOffsetUs = 0;
     int64_t moovStartTimeUs = mOwner->getStartTimestampUs();
-    if (mStartTimestampUs != moovStartTimeUs) {
+    if (mStartTimestampUs != moovStartTimeUs && mStszTableEntries->count() != 0) {
         CHECK_GT(mStartTimestampUs, moovStartTimeUs);
         trackStartTimeOffsetUs = mStartTimestampUs - moovStartTimeUs;
     }
