@@ -1538,7 +1538,8 @@ void NuPlayer::GenericSource::readBuffer(
             queueDiscontinuityIfNeeded(seeking, formatChange, trackType, track);
 
             sp<ABuffer> buffer = mediaBufferToABuffer(
-                    mbuf, trackType, seekTimeUs, actualTimeUs);
+                    mbuf, trackType, seekTimeUs,
+                    numBuffers == 0 ? actualTimeUs : NULL);
             track->mPackets->queueAccessUnit(buffer);
             formatChange = false;
             seeking = false;
