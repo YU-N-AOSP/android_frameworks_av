@@ -1371,6 +1371,7 @@ MediaPlayerService::AudioOutput::AudioOutput(int sessionId, int uid, int pid,
     }
 
     setMinBufferCount();
+    mBitWidth = 16;
 }
 
 MediaPlayerService::AudioOutput::~AudioOutput()
@@ -1627,6 +1628,15 @@ status_t MediaPlayerService::AudioOutput::open(
         } else if (mRecycledTrack->format() != format) {
             reuse = false;
         }
+
+        if (bothOffloaded) {
+            if (mBitWidth != offloadInfo->bit_width) {
+                ALOGV("output bit width differs %d v/s %d",
+                      mBitWidth, offloadInfo->bit_width);
+                reuse = false;
+            }
+        }
+
     } else {
         ALOGV("no track available to recycle");
     }
@@ -1742,6 +1752,13 @@ status_t MediaPlayerService::AudioOutput::open(
     mFlags = flags;
     mMsecsPerFrame = 1E3f / (mPlaybackRate.mSpeed * sampleRate);
     mFrameSize = t->frameSize();
+
+    if (offloadInfo) {
+        mBitWidth = offloadInfo->bit_width;
+    } else {
+        mBitWidth = 16;
+    }
+
     uint32_t pos;
     if (t->getPosition(&pos) == OK) {
         mBytesWritten = uint64_t(pos) * mFrameSize;
@@ -1842,6 +1859,7 @@ void MediaPlayerService::AudioOutput::switchToNextOutput() {
                 mNextOutput->mBytesWritten = mBytesWritten;
                 mNextOutput->mFlags = mFlags;
                 mNextOutput->mFrameSize = mFrameSize;
+                mNextOutput->mBitWidth = mBitWidth;
                 close_l();
                 mCallbackData = NULL;  // destruction handled by mNextOutput
             } else {
