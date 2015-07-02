@@ -40,6 +40,7 @@
 
 #include "StagefrightRecorder.h"
 #include <gui/IGraphicBufferProducer.h>
+#include "mediaplayerservice/AVMediaServiceExtensions.h"
 
 namespace android {
 
@@ -303,7 +304,7 @@ MediaRecorderClient::MediaRecorderClient(const sp<MediaPlayerService>& service, 
 {
     ALOGV("Client constructor");
     mPid = pid;
-    mRecorder = new StagefrightRecorder(opPackageName);
+    mRecorder = AVMediaServiceFactory::get()->createStagefrightRecorder(opPackageName);
     mMediaPlayerService = service;
 }
 

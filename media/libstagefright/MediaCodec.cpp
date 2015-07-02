@@ -50,6 +50,7 @@
 #include <private/android_filesystem_config.h>
 #include <utils/Log.h>
 #include <utils/Singleton.h>
+#include <stagefright/AVExtensions.h>
 
 namespace android {
 
@@ -339,7 +340,7 @@ status_t MediaCodec::init(const AString &name, bool nameIsType, bool encoder) {
     // we need to invest in an extra looper to free the main event
     // queue.
 
-    mCodec = GetCodecBase(name, nameIsType);
+    mCodec = AVFactory::get()->createACodec();
     if (mCodec == NULL) {
         return NAME_NOT_FOUND;
     }

@@ -105,8 +105,11 @@ struct ACodec : public AHierarchicalStateMachine, public CodecBase {
 
 protected:
     virtual ~ACodec();
+    virtual status_t setupCustomCodec(
+            status_t err, const char *mime, const sp<AMessage> &msg);
+    virtual status_t GetVideoCodingTypeFromMime(
+            const char *mime, OMX_VIDEO_CODINGTYPE *codingType);
 
-private:
     struct BaseState;
     struct UninitializedState;
     struct LoadedState;
@@ -312,7 +315,7 @@ private:
             uint32_t portIndex, IOMX::buffer_id bufferID,
             ssize_t *index = NULL);
 
-    status_t setComponentRole(bool isEncoder, const char *mime);
+    virtual status_t setComponentRole(bool isEncoder, const char *mime);
     static const char *getComponentRole(bool isEncoder, const char *mime);
     static status_t setComponentRole(
             const sp<IOMX> &omx, IOMX::node_id node, const char *role);
@@ -330,7 +333,7 @@ private:
 
     status_t setSupportedOutputFormat(bool getLegacyFlexibleFormat);
 
-    status_t setupVideoDecoder(
+    virtual status_t setupVideoDecoder(
             const char *mime, const sp<AMessage> &msg, bool usingNativeBuffers);
 
     status_t setupVideoEncoder(
@@ -424,7 +427,7 @@ private:
             bool dropIncomplete = false, FrameRenderTracker::Info *until = NULL);
 
     void sendFormatChange(const sp<AMessage> &reply);
-    status_t getPortFormat(OMX_U32 portIndex, sp<AMessage> &notify);
+    virtual status_t getPortFormat(OMX_U32 portIndex, sp<AMessage> &notify);
 
     void signalError(
             OMX_ERRORTYPE error = OMX_ErrorUndefined,
