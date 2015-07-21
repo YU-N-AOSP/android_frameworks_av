@@ -688,6 +688,9 @@ status_t MediaCodecSource::onStart(MetaData *params) {
             resume();
         } else {
             CHECK(mPuller != NULL);
+            if (mIsVideo) {
+                mEncoder->requestIDRFrame();
+            }
             mPuller->resume();
         }
         return OK;
