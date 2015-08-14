@@ -819,8 +819,10 @@ status_t StagefrightRecorder::prepareInternal() {
             break;
 
         default:
-            ALOGE("Unsupported output file format: %d", mOutputFormat);
-            status = UNKNOWN_ERROR;
+            if (handleCustomRecording() != OK) {
+                ALOGE("Unsupported output file format: %d", mOutputFormat);
+                status = UNKNOWN_ERROR;
+            }
             break;
     }
 
@@ -884,8 +886,10 @@ status_t StagefrightRecorder::start() {
 
         default:
         {
-            ALOGE("Unsupported output file format: %d", mOutputFormat);
-            status = UNKNOWN_ERROR;
+            if (handleCustomOutputFormats() != OK) {
+                ALOGE("Unsupported output file format: %d", mOutputFormat);
+                status = UNKNOWN_ERROR;
+            }
             break;
         }
     }
@@ -970,8 +974,10 @@ sp<MediaSource> StagefrightRecorder::createAudioSource() {
             break;
 
         default:
-            ALOGE("Unknown audio encoder: %d", mAudioEncoder);
-            return NULL;
+            if (handleCustomAudioSource(format) != OK) {
+                ALOGE("Unknown audio encoder: %d", mAudioEncoder);
+                return NULL;
+            }
     }
 
     int32_t maxInputSize;
@@ -1624,8 +1630,10 @@ status_t StagefrightRecorder::setupAudioEncoder(const sp<MediaWriter>& writer) {
             break;
 
         default:
-            ALOGE("Unsupported audio encoder: %d", mAudioEncoder);
-            return UNKNOWN_ERROR;
+            if (handleCustomAudioEncoder() != OK) {
+                ALOGE("Unsupported audio encoder: %d", mAudioEncoder);
+                return UNKNOWN_ERROR;
+            }
     }
 
     sp<MediaSource> audioEncoder = createAudioSource();
