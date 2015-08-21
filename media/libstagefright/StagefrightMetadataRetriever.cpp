@@ -222,6 +222,7 @@ static VideoFrame *extractVideoFrame(
     err = decoder->getInputBuffers(&inputBuffers);
     if (err != OK) {
         ALOGW("failed to get input buffers: %d (%s)", err, asString(err));
+        source->stop();
         decoder->release();
         return NULL;
     }
@@ -230,6 +231,7 @@ static VideoFrame *extractVideoFrame(
     err = decoder->getOutputBuffers(&outputBuffers);
     if (err != OK) {
         ALOGW("failed to get output buffers: %d (%s)", err, asString(err));
+        source->stop();
         decoder->release();
         return NULL;
     }
