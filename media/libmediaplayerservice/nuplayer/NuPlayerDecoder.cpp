@@ -78,7 +78,9 @@ NuPlayer::Decoder::Decoder(
 }
 
 NuPlayer::Decoder::~Decoder() {
-    mCodec->release();
+    if (mCodec != NULL) {
+        mCodec->release();
+    }
     releaseAndResetMediaBuffers();
 }
 
