@@ -1570,6 +1570,7 @@ void MPEG4Writer::Track::getCodecSpecificDataFromInputFormatIfPossible() {
         size_t size;
         if (mMeta->findData(kKeyAVCC, &type, &data, &size)) {
             mCodecSpecificData = malloc(size);
+            CHECK(mCodecSpecificData != NULL);
             mCodecSpecificDataSize = size;
             memcpy(mCodecSpecificData, data, size);
             mGotAllCodecSpecificData = true;
@@ -1583,6 +1584,7 @@ void MPEG4Writer::Track::getCodecSpecificDataFromInputFormatIfPossible() {
             ESDS esds(data, size);
             if (esds.getCodecSpecificInfo(&data, &size) == OK) {
                 mCodecSpecificData = malloc(size);
+                CHECK(mCodecSpecificData != NULL);
                 mCodecSpecificDataSize = size;
                 memcpy(mCodecSpecificData, data, size);
                 mGotAllCodecSpecificData = true;
@@ -1983,6 +1985,7 @@ status_t MPEG4Writer::Track::copyAVCCodecSpecificData(
 
     mCodecSpecificDataSize = size;
     mCodecSpecificData = malloc(size);
+    CHECK(mCodecSpecificData != NULL);
     memcpy(mCodecSpecificData, data, size);
     return OK;
 }
@@ -2105,6 +2108,7 @@ status_t MPEG4Writer::Track::makeAVCCodecSpecificData(
     // ISO 14496-15: AVC file format
     mCodecSpecificDataSize += 7;  // 7 more bytes in the header
     mCodecSpecificData = malloc(mCodecSpecificDataSize);
+    CHECK(mCodecSpecificData != NULL);
     uint8_t *header = (uint8_t *)mCodecSpecificData;
     header[0] = 1;                     // version
     header[1] = mProfileIdc;           // profile indication
@@ -2239,6 +2243,7 @@ status_t MPEG4Writer::Track::threadEntry() {
             } else if (mIsMPEG4) {
                 mCodecSpecificDataSize = buffer->range_length();
                 mCodecSpecificData = malloc(mCodecSpecificDataSize);
+                CHECK(mCodecSpecificData != NULL);
                 memcpy(mCodecSpecificData,
                         (const uint8_t *)buffer->data()
                             + buffer->range_offset(),
