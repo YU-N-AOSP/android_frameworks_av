@@ -157,6 +157,12 @@ void AVUtils::HEVCMuxer::getHEVCCodecSpecificDataFromInputFormatIfPossible(
     return;
 }
 
+void AVUtils::setIntraPeriod(
+        int, int, const sp<IOMX>,
+        IOMX::node_id) {
+    return;
+}
+
 // ----- NO TRESSPASSING BEYOND THIS LINE ------
 AVUtils::AVUtils() {}
 

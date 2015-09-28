@@ -32,6 +32,7 @@
 #include <media/stagefright/DataSource.h>
 #include <common/AVExtensionsCommon.h>
 #include <system/audio.h>
+#include <media/IOMX.h>
 
 namespace android {
 
@@ -176,6 +177,10 @@ struct AVUtils {
     virtual inline HEVCMuxer& HEVCMuxerUtils() {
          return mHEVCMuxer;
     }
+
+    virtual void setIntraPeriod(
+                int nPFrames, int nBFrames, const sp<IOMX> OMXhandle,
+                IOMX::node_id nodeID);
 
 private:
     HEVCMuxer mHEVCMuxer;
