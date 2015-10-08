@@ -163,6 +163,10 @@ void AVUtils::setIntraPeriod(
     return;
 }
 
+const char *AVUtils::getCustomCodecsPerformanceLocation() {
+    return "/etc/media_codecs_performance.xml";
+}
+
 // ----- NO TRESSPASSING BEYOND THIS LINE ------
 AVUtils::AVUtils() {}
 

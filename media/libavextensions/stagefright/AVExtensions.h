@@ -194,6 +194,8 @@ struct AVUtils {
          return mHEVCMuxer;
     }
 
+    virtual const char *getCustomCodecsPerformanceLocation();
+
     virtual void setIntraPeriod(
                 int nPFrames, int nBFrames, const sp<IOMX> OMXhandle,
                 IOMX::node_id nodeID);
