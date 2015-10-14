@@ -45,7 +45,6 @@ struct ACodec;
 struct ALooper;
 struct IMediaHTTPConnection;
 struct MediaCodec;
-struct MediaSource;
 struct MediaHTTP;
 struct NuCachedSource2;
 class CameraParameters;
