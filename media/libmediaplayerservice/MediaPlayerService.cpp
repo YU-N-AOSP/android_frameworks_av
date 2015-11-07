@@ -102,7 +102,7 @@
 #include "HDCP.h"
 #include "HTTPBase.h"
 #include "RemoteDisplay.h"
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
 #include "DolbyMediaPlayerServiceExtImpl.h"
 #endif // DOLBY_END
 
@@ -1394,7 +1394,7 @@ MediaPlayerService::AudioOutput::AudioOutput(int sessionId, int uid, int pid,
 
     setMinBufferCount();
     mBitWidth = 16;
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
     mProcessedAudio = false;
 #endif // DOLBY_END
 }
@@ -1496,7 +1496,7 @@ status_t MediaPlayerService::AudioOutput::getFramesWritten(uint32_t *frameswritt
 status_t MediaPlayerService::AudioOutput::setParameters(const String8& keyValuePairs)
 {
     Mutex::Autolock lock(mLock);
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
     setDolbyParameters(keyValuePairs);
 #endif // DOLBY_END
     if (mTrack == 0) return NO_INIT;
@@ -1760,7 +1760,7 @@ status_t MediaPlayerService::AudioOutput::open(
                 mCallbackData->setOutput(this);
             }
             delete newcbd;
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
             updateTrackOnAudioProcessed(mTrack, reuse);
 #endif // DOLBY_END
             return OK;
@@ -1806,7 +1806,7 @@ status_t MediaPlayerService::AudioOutput::open(
             res = t->attachAuxEffect(mAuxEffectId);
         }
     }
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
     updateTrackOnAudioProcessed(t, false);
 #endif // DOLBY_END
     ALOGV("open() DONE status %d", res);

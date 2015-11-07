@@ -137,7 +137,7 @@ private:
 
     AudioPlayer(const AudioPlayer &);
     AudioPlayer &operator=(const AudioPlayer &);
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
     void setDolbyProcessedAudio(sp<MetaData> &format);
 #endif // DOLBY_END
 };

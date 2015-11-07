@@ -73,7 +73,7 @@
 #include "include/avc_utils.h"
 
 #include <stagefright/AVExtensions.h>
-#ifdef DOLBY_UDC
+#ifdef DOLBY_ENABLE
 #include "DolbyACodecExtImpl.h"
 #endif // DOLBY_END
 
@@ -5741,7 +5741,7 @@ bool ACodec::LoadedState::onMessageReceived(const sp<AMessage> &msg) {
             handled = true;
             break;
         }
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
         case ACodec::kWhatSetParameters:
         {
             mCodec->setDolbyParameter(msg);
@@ -5956,7 +5956,7 @@ void ACodec::LoadedState::onStart() {
     if (err != OK) {
         mCodec->signalError(OMX_ErrorUndefined, makeNoSideEffectStatus(err));
     } else {
-#ifdef DOLBY_UDC
+#ifdef DOLBY_ENABLE
         mCodec->setDolbyParameterOnEndpChange();
 #endif // DOLBY_END
         mCodec->changeState(mCodec->mLoadedToIdleState);
@@ -6432,7 +6432,7 @@ status_t ACodec::setParameters(const sp<AMessage> &params) {
             return err;
         }
     }
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
+#ifdef DOLBY_ENABLE
     return setDolbyParameterOnProcessedAudio(params);
 #endif // DOLBY_END
 

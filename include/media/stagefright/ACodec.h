@@ -488,12 +488,10 @@ protected:
         return false;
     }
 
-#ifdef DOLBY_UDC
+#ifdef DOLBY_ENABLE
     status_t setDolbyParameterOnEndpChange();
-#ifdef DOLBY_UDC_VIRTUALIZE_AUDIO
     void     setDolbyParameter(const sp<AMessage> &msg);
     status_t setDolbyParameterOnProcessedAudio(const sp<AMessage> &params);
-#endif
 #endif // DOLBY_END
 
     DISALLOW_EVIL_CONSTRUCTORS(ACodec);
