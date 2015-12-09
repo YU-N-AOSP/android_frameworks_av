@@ -109,6 +109,7 @@ protected:
     bool mIsSecure;
     bool mFormatChangePending;
     bool mTimeChangePending;
+    bool mVideoFormatChangeDoFlushOnly;
 
     bool mPaused;
     bool mResumePending;
