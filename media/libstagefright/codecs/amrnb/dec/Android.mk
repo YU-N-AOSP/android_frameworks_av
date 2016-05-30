@@ -84,7 +84,7 @@ LOCAL_SHARED_LIBRARIES := \
         libstagefright_amrnb_common
 
 LOCAL_MODULE := libstagefright_soft_amrdec
-LOCAL_CLANG := false
+LOCAL_CLANG := true
 LOCAL_MODULE_TAGS := optional
 
 include $(BUILD_SHARED_LIBRARY)
