@@ -46,6 +46,8 @@
 #include <camera/ICamera.h>
 #include <camera/CameraParameters.h>
 
+#include "stagefright/AVExtensions.h"
+
 #include <utils/Errors.h>
 #include <sys/types.h>
 #include <ctype.h>
