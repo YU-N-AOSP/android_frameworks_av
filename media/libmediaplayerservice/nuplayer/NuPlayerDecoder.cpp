@@ -94,7 +94,6 @@ NuPlayer::Decoder::Decoder(
       mFormatChangePending(false),
       mTimeChangePending(false),
       mVideoFormatChangeDoFlushOnly(false),
-      mPaused(true),
       mResumePending(false),
       mComponentName("decoder") {
     mCodecLooper = new ALooper;

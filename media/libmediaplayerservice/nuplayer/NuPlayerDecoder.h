@@ -111,7 +111,6 @@ protected:
     bool mTimeChangePending;
     bool mVideoFormatChangeDoFlushOnly;
 
-    bool mPaused;
     bool mResumePending;
     AString mComponentName;
 
