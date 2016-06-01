@@ -176,8 +176,7 @@ MediaCodecList::MediaCodecList()
       mUpdate(false),
       mGlobalSettings(new AMessage()) {
     parseTopLevelXMLFile("/etc/media_codecs.xml");
-    parseTopLevelXMLFile(AVUtils::get()->getCustomCodecsPerformanceLocation(),
-                            true/* ignore_errors */);
+    parseTopLevelXMLFile("/etc/media_codecs_performance.xml", true/* ignore_errors */);
     parseTopLevelXMLFile(kProfilingResults, true/* ignore_errors */);
 }
 

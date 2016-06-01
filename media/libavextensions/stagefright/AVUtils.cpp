@@ -163,9 +163,6 @@ void AVUtils::setIntraPeriod(
     return;
 }
 
-const char *AVUtils::getCustomCodecsPerformanceLocation() {
-    return "/etc/media_codecs_performance.xml";
-}
 
 bool AVUtils::IsHevcIDR(const sp<ABuffer> &) {
    return false;
