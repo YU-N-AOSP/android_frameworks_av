@@ -380,16 +380,14 @@ void NuPlayer::GenericSource::onPrepareAsync() {
                 }
             }
 
-            dataSource = DataSource::CreateFromURI(
+            mDataSource = DataSource::CreateFromURI(
                    mHTTPService, uri, &mUriHeaders, &contentType,
                    static_cast<HTTPBase *>(mHttpSource.get()),
                    true /*use extended cache*/);
-            mDataSource = dataSource;
         } else {
             mIsWidevine = false;
 
-            dataSource = new FileSource(mFd, mOffset, mLength);
-            mDataSource = dataSource;
+            mDataSource = new FileSource(mFd, mOffset, mLength);
             mFd = -1;
         }
 
