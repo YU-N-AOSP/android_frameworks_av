@@ -351,7 +351,7 @@ void SoftAMR::onQueueFilled(OMX_U32 /* portIndex */) {
                 return;
             }
 
-            size_t frameSize = getFrameSize(mode);
+            unsigned long frameSize = getFrameSize(mode);
             if (inHeader->nFilledLen < frameSize) {
                 ALOGE("Filled length vs frameSize %u vs %lu. Corrupt clip?",
                    inHeader->nFilledLen, frameSize);
